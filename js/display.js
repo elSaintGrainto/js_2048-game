@@ -54,7 +54,9 @@ function setNewSquare() {
     let top = floor[rNum].getBoundingClientRect().x;
     let left = floor[rNum].getBoundingClientRect().y;
     //setting new square
-    let n = new Square(2, top, left);
+    let sqr = new Square(2, top, left);
+    if (sqr.square() != null) {
+        floor[rNum].appendChild(sqr.square());
+    }
 
-    floor[rNum].appendChild(n.square());
 }
