@@ -6,7 +6,7 @@
  */
 //make a big square for main panel, then small squares for position
 let sqrPanel = document.createElement("div");
-
+const c = console.log;
 let sizeSqr = 50;
 let sizeMtx = 4;
 let posX = 0,
@@ -39,19 +39,22 @@ function calculateSizeFloor() {
 }
 //calculateSizeFloor();
 generateFloor(sizeMtx);
+setNewSquare();
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
-    let max = sizeMtx ^ 2;
+    let max = sizeMtx * sizeMtx;
     let rNum = parseInt(Math.random() * 10);
     //getting new position of a random square
     while (rNum > max) {
         rNum = parseInt(Math.random() * 10);
     }
+    c("r=" + rNum);
     //TODO check  if the floor have not a square with number
-    let top = floor[rNum].getAttribute("top");
-    let left = floor[rNum].getAttribute("left");
+    let top = floor[rNum].getBoundingClientRect().x;
+    let left = floor[rNum].getBoundingClientRect().y;
+    //setting new square
+    let n = new Square(2, top, left);
 
-
-
+    floor[rNum].appendChild(n.square());
 }
