@@ -31,11 +31,13 @@
 }
 
 .sqr-panel {
+    position: relative;
+    top: 50px;
+    left: 70px;
     display: flex;
     flex-wrap: wrap;
     background-color: #666;
-    padding-left: 3px;
-    ;
+    padding: 3px;
     /*calculate the size of the squares and his margins*/
     width: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2)* 4 + 5px);
     height: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2) * 4 + 5px);
