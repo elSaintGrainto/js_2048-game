@@ -5,7 +5,7 @@
  * then add a transition effect when moved from position
  */
 //make a big square for main panel, then small squares for position
-let div = document.createElement("div").classList.add("sqr-panel");
+let sqrPanel = document.createElement("div").classList.add("sqr-panel");
 let sqrBg = document.createElement("div").classList.add("sqr-floor");
 let sizeSqr = 50;
 let posX = 0,
@@ -17,9 +17,11 @@ let posX = 0,
 function generateFloor(size) {
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
+
             let d = document.createElement("div");
 
-            div.appendChild(d);
+
+            sqrPanel.appendChild(d);
 
         }
     }
