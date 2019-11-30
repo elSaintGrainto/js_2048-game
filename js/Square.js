@@ -21,7 +21,6 @@ class Square {
             if (number < 2) {
                 console.log("can not set number below 2")
             }
-            this.size = size;
             this.num = number;
             this.position = new function() {
                 this.x = posX;
@@ -36,10 +35,10 @@ class Square {
     get square() {
             let textN;
             if (this.num != null) {
-                textN = document.createTextNode = "" + this.num;
-                div.appendChild(textN);
-                div.classList.add("square"); //setting size, colors
-                return div;
+                textN = document.createTextNode("" + this.num);
+                this.div.appendChild(textN);
+                this.div.classList.add("square"); //setting size, colors
+                return this.div;
             } else {
                 console.log("can not make square, need to set a number to show in");
                 return null;
@@ -49,14 +48,19 @@ class Square {
     get getPosition() {
             return this.position;
         }
-        /**set the position in x,y of the square, can fill with "null", for change just one*/
-    set setPosition(posX, posY) {
+        /**set the position in x of the square not accept null*/
+    set setPositionX(posX) {
             if (posX != null)
                 this.position.x = posX;
-            if (posY != null)
-                this.position.y = posY;
+
         }
-        /**set the number to show in the div */
+        /**set the position in y of the square not accept null*/
+    set setPositionY(posY) {
+        if (posY != null)
+            this.position.y = posY;
+    }
+
+    /**set the number to show in the div */
     set setNumber(number) {
         if (number != null || number > 1) {
             this.num = number;
