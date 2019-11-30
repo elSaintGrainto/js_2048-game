@@ -13,6 +13,10 @@ class Cube {
      * @param {Integer} posY  position in Y axis, where the square gonna stay or spawn in the game
      */
     constructor(number, posX, posY) {
+        if (number == null || posX == null || posY == null) {
+            console.log("can not make square, need to fill allt the params");
+            return null;
+        }
         this.size = size;
         this.num = number;
         this.point = new PointerEvent(posX, posY);
@@ -30,6 +34,8 @@ class Cube {
             console.log("can not make square, need to set a number to show in");
             return null;
         }
-
+    }
+    get getPosition() {
+        return this.point;
     }
 }
