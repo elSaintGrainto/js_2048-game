@@ -23,9 +23,19 @@ function generateFloor(size) {
             d.classList.add("square");
             d.classList.add("floor");
             sqrPanel.appendChild(d);
-            console.log("doing thiing");
         }
     }
     document.getElementById("main-panel").appendChild(sqrPanel);
 }
+
+function calculateSizeFloor() {
+    //not worked so good better use flex o grid
+    let mrgSqr = 7;
+    let mtxSize = 4;
+    let w = sizeSqr * mtxSize + mrgSqr;
+    sqrPanel.classList.add("sqr-panel");
+    sqrPanel.setAttribute("width", w);
+    sqrPanel.setAttribute("height", w);
+}
+//calculateSizeFloor();
 generateFloor(4);
