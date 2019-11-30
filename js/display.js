@@ -59,5 +59,5 @@ function setNewSquare() {
     if (box != null) {
         floor[rNum].appendChild(box);
     }
-
+    box.classList.add("sqr-color");
 }
