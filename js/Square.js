@@ -35,7 +35,7 @@ class Square {
     get square() {
             let textN;
             if (this.num != null) {
-                textN = document.createTextNode("" + this.num);
+                textN = document.createTextNode(this.num);
                 this.div.appendChild(textN);
                 this.div.classList.add("square"); //setting size, colors
                 return this.div;
@@ -52,15 +52,13 @@ class Square {
     set setPositionX(posX) {
             if (posX != null)
                 this.position.x = posX;
-
         }
         /**set the position in y of the square not accept null*/
     set setPositionY(posY) {
-        if (posY != null)
-            this.position.y = posY;
-    }
-
-    /**set the number to show in the div */
+            if (posY != null)
+                this.position.y = posY;
+        }
+        /**set the number to show in the div */
     set setNumber(number) {
         if (number != null || number > 1) {
             this.num = number;
