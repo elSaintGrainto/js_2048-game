@@ -8,6 +8,7 @@
 let sqrPanel = document.createElement("div");
 
 let sizeSqr = 50;
+let sizeMtx = 4;
 let posX = 0,
     posY = 0;
 //maybe use grid or flexbox to position it the squares
@@ -31,11 +32,26 @@ function generateFloor(size) {
 function calculateSizeFloor() {
     //not worked so good better use flex o grid
     let mrgSqr = 7;
-    let mtxSize = 4;
-    let w = sizeSqr * mtxSize + mrgSqr;
+    let w = sizeSqr * sizeMtx + mrgSqr;
     sqrPanel.classList.add("sqr-panel");
     sqrPanel.setAttribute("width", w);
     sqrPanel.setAttribute("height", w);
 }
 //calculateSizeFloor();
-generateFloor(4);
+generateFloor(sizeMtx);
+
+function setNewSquare() {
+    let floor = document.getElementsByClassName("floor");
+    let max = sizeMtx ^ 2;
+    let rNum = parseInt(Math.random() * 10);
+    //getting new position of a random square
+    while (rNum > max) {
+        rNum = parseInt(Math.random() * 10);
+    }
+    //TODO check  if the floor have not a square with number
+    let top = floor[rNum].getAttribute("top");
+    let left = floor[rNum].getAttribute("left");
+
+
+
+}
