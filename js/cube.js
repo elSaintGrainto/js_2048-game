@@ -20,7 +20,10 @@ class Cube {
             }
             this.size = size;
             this.num = number;
-            this.point = new PointerEvent(posX, posY);
+            this.position = new function() {
+                this.x = posX;
+                this.y = posY;
+            }
         }
         /**
          * Return a "Div", that represent the square maked, this one have a class "square"
@@ -40,6 +43,12 @@ class Cube {
         }
     }
     get getPosition() {
-        return this.point;
+        return this.position;
+    }
+    set setPosition(posX, posY) {
+        if (posX != null)
+            this.position.x = posX;
+        if (posY != null)
+            this.position.y = posY;
     }
 }
