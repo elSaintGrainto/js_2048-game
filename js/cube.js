@@ -15,7 +15,7 @@ class Cube {
     constructor(number, posX, posY) {
         if (number == null || posX == null || posY == null) {
             console.log("can not make square, need to fill allt the params");
-            return null;
+            return -1;
         }
         this.size = size;
         this.num = number;
