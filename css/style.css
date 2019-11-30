@@ -39,8 +39,8 @@
     border-radius: 3px;
     padding: 3px;
     /*calculate the size of the squares and his margins*/
-    width: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2)* 4 + 5px);
-    height: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2) * 4 + 5px);
+    width: calc(var(--square-size)*5 + var(--marg-sqr));
+    height: calc(var(--square-size)*5 + var(--marg-sqr));
 }
 
 
