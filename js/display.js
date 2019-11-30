@@ -64,3 +64,12 @@ function setNewSquare() {
     }
     box.classList.add("sqr-color");
 }
+/** move box at 1 box length
+ * move box if the direction of the movement have one box with the same numberor a free space
+ * when the box moved, delete it, sum the nunmbers and conserv the one that was there,
+ * finaly change the color of the box
+ */
+//TODO
+function sqrMoved() {
+
+}
