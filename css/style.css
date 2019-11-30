@@ -24,10 +24,9 @@
 }
 
 .floor {
-    margin-right: var(--marg-sqr);
-    margin-left: var(--marg-sqr);
-    margin-top: var(--marg-sqr);
+    margin: var(--marg-sqr);
     background-color: #9c9a97;
+    border-radius: 3px;
 }
 
 .sqr-panel {
@@ -37,6 +36,7 @@
     display: flex;
     flex-wrap: wrap;
     background-color: #666;
+    border-radius: 3px;
     padding: 3px;
     /*calculate the size of the squares and his margins*/
     width: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2)* 4 + 5px);
