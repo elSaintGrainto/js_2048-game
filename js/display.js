@@ -14,3 +14,13 @@ let posX = 0,
 /**
  * generate divs with sqr-floor class
  */
+function generateFloor(size) {
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            let d = document.createElement("div");
+
+            div.appendChild(d);
+
+        }
+    }
+}
