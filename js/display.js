@@ -44,10 +44,10 @@ setNewSquare();
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
     let max = sizeMtx * sizeMtx;
-    let rNum = parseInt(Math.random() * 10);
+    let rNum = parseInt(Math.random() * max);
     //getting new position of a random square
     while (rNum > max) {
-        rNum = parseInt(Math.random() * 10);
+        rNum = parseInt(Math.random() * max);
     }
     c("r=" + rNum);
     //TODO check  if the floor have not a square with number
