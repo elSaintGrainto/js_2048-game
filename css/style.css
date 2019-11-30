@@ -1,33 +1,44 @@
 * {
     font-size: 15px;
     font-family: sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
     --square-size: 50px;
+    --marg-sqr: 7px;
 }
 
 .square {
     width: var(--square-size);
     height: var(--square-size);
-    background-color: #f3f3f3;
-    color: #345;
     text-align: center;
     line-height: var(--square-size);
     font-size: 2em;
 }
 
-.sqr-panel {
-    background-color: #666;
-    /*calculate the size of the squares and his margins*/
-    width: calc(calc(var(--square-size) *4) + 10px * 5);
-    height: calc(calc(var(--square-size) *4) + 10px * 5);
+.sqr-color {
+    background-color: #f3f3f3;
+    color: #345;
 }
 
-.sqr-floor {
-    width: var(--square-size);
-    margin-right: 10px;
+.floor {
+    margin-right: var(--marg-sqr);
+    margin-left: var(--marg-sqr);
+    margin-top: var(--marg-sqr);
     background-color: #9c9a97;
+}
+
+.sqr-panel {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #666;
+    padding-left: 3px;
+    ;
+    /*calculate the size of the squares and his margins*/
+    width: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2)* 4 + 5px);
+    height: calc(calc(var(--square-size) *4) + calc(var(--marg-sqr) * 2) * 4 + 5px);
 }
 
 
