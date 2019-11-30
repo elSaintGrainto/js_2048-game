@@ -15,7 +15,7 @@
     height: var(--square-size);
     text-align: center;
     line-height: var(--square-size);
-    font-size: 2em;
+    font-size: 35px;
 }
 
 .sqr-color {
