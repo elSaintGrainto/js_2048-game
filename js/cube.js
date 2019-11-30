@@ -1,8 +1,9 @@
 /**
- * Class of the cubes that make the game.
- * This cubes have same size, they are squares.
+ * Class of the squares that make the game.
+ * This squares have same size.
  * They start with the number 2 in his innerhtml
  * They change color when have some specific number(change class color)
+ * RECOMENDATION to have a class "square" that have size and color of this square
  * 
  */
 class Cube {
@@ -13,15 +14,18 @@ class Cube {
      * @param {Integer} posY  position in Y axis, where the square gonna stay or spawn in the game
      */
     constructor(number, posX, posY) {
-        if (number == null || posX == null || posY == null) {
-            console.log("can not make square, need to fill allt the params");
-            return -1;
+            if (number == null || posX == null || posY == null) {
+                console.log("can not make square, need to fill allt the params");
+                return -1;
+            }
+            this.size = size;
+            this.num = number;
+            this.point = new PointerEvent(posX, posY);
         }
-        this.size = size;
-        this.num = number;
-        this.point = new PointerEvent(posX, posY);
-
-    }
+        /**
+         * Return a "Div", that represent the square maked, this one have a class "square"
+         * that have his size and colors setted
+         */
     get square() {
         let div = document.createElement("div");
         let textN;
