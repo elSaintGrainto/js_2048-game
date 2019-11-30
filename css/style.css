@@ -17,5 +17,18 @@
     font-size: 2em;
 }
 
+.sqr-panel {
+    background-color: #666;
+    /*calculate the size of the squares and his margins*/
+    width: calc(calc(var(--square-size) *4) + 10px * 5);
+    height: calc(calc(var(--square-size) *4) + 10px * 5);
+}
+
+.sqr-floor {
+    width: var(--square-size);
+    margin-right: 10px;
+    background-color: #9c9a97;
+}
+
 
 /*TODO make a way to change colro from white to red,orange, yellow,and legendari colours*/
