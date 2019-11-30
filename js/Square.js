@@ -18,6 +18,9 @@ class Square {
                 console.log("can not make square, need to fill allt the params");
                 return -1;
             }
+            if (number < 2) {
+                console.log("can not set number below 2")
+            }
             this.size = size;
             this.num = number;
             this.position = new function() {
@@ -50,5 +53,9 @@ class Square {
             this.position.x = posX;
         if (posY != null)
             this.position.y = posY;
+    }
+    set setNumber(number) {
+        if (number != null || number > 1)
+            this.num = number;
     }
 }
