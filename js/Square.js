@@ -27,35 +27,40 @@ class Square {
                 this.x = posX;
                 this.y = posY;
             }
+            this.div = document.createElement("div");
         }
         /**
          * Return a "Div", that represent the square maked, this one have a class "square"
          * that have his size and colors setted
          */
     get square() {
-        let div = document.createElement("div");
-        let textN;
-        if (this.num != null) {
-            textN = document.createTextNode = "" + this.num;
-            div.appendChild(textN);
-            div.classList.add("square"); //setting size, colors
-            return div;
-        } else {
-            console.log("can not make square, need to set a number to show in");
-            return null;
+            let textN;
+            if (this.num != null) {
+                textN = document.createTextNode = "" + this.num;
+                div.appendChild(textN);
+                div.classList.add("square"); //setting size, colors
+                return div;
+            } else {
+                console.log("can not make square, need to set a number to show in");
+                return null;
+            }
         }
-    }
+        /**return the position in x,y of the square */
     get getPosition() {
-        return this.position;
-    }
+            return this.position;
+        }
+        /**set the position in x,y of the square, can fill with "null", for change just one*/
     set setPosition(posX, posY) {
-        if (posX != null)
-            this.position.x = posX;
-        if (posY != null)
-            this.position.y = posY;
-    }
+            if (posX != null)
+                this.position.x = posX;
+            if (posY != null)
+                this.position.y = posY;
+        }
+        /**set the number to show in the div */
     set setNumber(number) {
-        if (number != null || number > 1)
+        if (number != null || number > 1) {
             this.num = number;
+            div.appendChild(document.createTextNode = "" + this.num);
+        }
     }
 }
