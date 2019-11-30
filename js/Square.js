@@ -6,7 +6,7 @@
  * RECOMENDATION to have a class "square" that have size and color of this square
  * 
  */
-class Cube {
+class Square {
     /**
      * 
      * @param {Integer} number the number that show in the square
