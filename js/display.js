@@ -87,8 +87,8 @@ function moveBox(side) {
                     let box = floor[count].children.item(0);
                     let num = box.textContent;
                     console.log("box=" + box);
-                    let pos = "pos-" + top + "-" + left;
-                    checkToMove(top, left, num, true); //true for decrese top axis
+
+                    let moveHere = checkToMove(top, left, num, true); //true for decrese top axis
                 }
                 count++;
             }
