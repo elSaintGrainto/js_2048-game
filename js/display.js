@@ -110,6 +110,9 @@ function moveBox(side) {
                     //dont move, stay there
                     c("nope, im not moving")
                 } else {
+                    //correction for bug of return undefined
+                    moveTop = moveTop == undefined ? sizeMtx - 1 : moveTop;
+                    moveLeft = moveLeft == undefined ? sizeMtx - 1 : moveLeft;
                     c("movingT=" + moveTop);
                     c("movingL=" + moveLeft);
                     //do translation
