@@ -43,6 +43,7 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
+moveBox("UP");
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
@@ -82,19 +83,20 @@ function moveBox(side) {
                 //get position to know if can move
                 let box = floor[count].children.item(0);
                 let num = box.textContent;
-                console.log("box=" + box);
+                let moveHere;
                 if (side == "UP") {
-                    let moveHere = checkToMove(top, left, num, true); //true for decrese top axis
+                    moveHere = checkToMove(top, left, num, true); //true for decrese top axis
                 }
                 if (side == "DOWN") {
-                    let moveHere = checkToMove(top, left, num, false); //true for decrese top axis
+                    moveHere = checkToMove(top, left, num, false); //true for decrese top axis
                 }
                 if (side == "RIGHT") {
-                    let moveHere = checkToMove(left, top, num, true); //true for decrese top axis
+                    moveHere = checkToMove(left, top, num, true); //true for decrese top axis
                 }
                 if (side == "LEFT") {
-                    let moveHere = checkToMove(left, top, num, true); //true for decrese top axis
+                    moveHere = checkToMove(left, top, num, true); //true for decrese top axis
                 }
+                console.log("move=" + moveHere);
             }
             count++;
         }
@@ -125,7 +127,7 @@ function checkToMove(x, y, num, bDecrese) {
     let floor = document.getElementsByClassName("pos-" + x + "-" + y)[0];
     let childs = floor.childElementCount;
     if (childs == 0) { //recursion while empty floor
-        checkToMove(x, y, num);
+        checkToMove(x, y, num, bDecrese);
     } else { //child==1
         let textNum = floor.textContent;
         if (textNum == num) {
