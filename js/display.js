@@ -43,7 +43,7 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
-moveBox("UP");
+moveBox("RIGHT");
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
@@ -83,20 +83,35 @@ function moveBox(side) {
                 //get position to know if can move
                 let box = floor[count].children.item(0);
                 let num = box.textContent;
-                let moveHere;
+                let moveTop = 0,
+                    moveLeft = 0;
+                c("box" + top + "-" + left);
                 if (side == "UP") {
-                    moveHere = checkToMove(top, left, num, true); //true for decrese top axis
+                    c("moving UP");
+                    moveTop = checkToMove(top, left, num, true); //true for decrese y axis
                 }
                 if (side == "DOWN") {
-                    moveHere = checkToMove(top, left, num, false); //true for decrese top axis
+                    c("moving DOWN");
+                    moveTop = checkToMove(top, left, num, false); //false for increse y axis
                 }
                 if (side == "RIGHT") {
-                    moveHere = checkToMove(left, top, num, true); //true for decrese top axis
+                    c("moving RIGHT");
+                    moveLeft = checkToMove(left, top, num, false); //false for increse x axis
                 }
                 if (side == "LEFT") {
-                    moveHere = checkToMove(left, top, num, true); //true for decrese top axis
+                    c("moving LEFT");
+                    moveLeft = checkToMove(left, top, num, true); //true for decrese x axis
                 }
-                console.log("move=" + moveHere);
+                if (moveTop == top && moveLeft == left) {
+                    //dont move, stay there
+                    c("nope, im not moving")
+                } else {
+                    c("movingT=" + moveTop);
+                    c("movingL=" + moveLeft);
+                    //do translation
+                }
+
+
             }
             count++;
         }
@@ -111,30 +126,40 @@ function moveBox(side) {
  * @param {String} num  represents the number in the box
  * @param {Boolean} bDecrese if is true this will check from bottom to top, else top to bottom
  */
+1, 2
+
 function checkToMove(x, y, num, bDecrese) {
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
     if (x == 0) {
         console.log("can not move less");
-        return x;
+        c("x=" + x);
+        return parseInt(x);
     }
     if (x == sizeMtx - 1) {
         console.log("can not move more");
-        return x;
+        c("x=" + x);
+        return parseInt(x);
     }
 
     x = bDecrese ? x - 1 : x + 1;
-    let floor = document.getElementsByClassName("pos-" + x + "-" + y)[0];
-    let childs = floor.childElementCount;
+    c("checking pos-" + x + "-" + y);
+    let floor = document.getElementsByClassName("pos-" + x + "-" + y);
+    c("checking =" + floor[0]);
+    let childs = floor[0].childElementCount;
     if (childs == 0) { //recursion while empty floor
         checkToMove(x, y, num, bDecrese);
     } else { //child==1
         let textNum = floor.textContent;
         if (textNum == num) {
-            return x; //return to start sum and move right here
+            c("xSum=" + x);
+            return parseInt(x); //return to start sum and move right here
         } else {
+
+            x = bDecrese ? x - 1 : x + 1
+            c("xDif=" + x);
             //return back box to dont move,or just less move
-            return x = bDecrese ? x - 1 : x + 1;
+            return parseInt(x);
         }
     }
 }
