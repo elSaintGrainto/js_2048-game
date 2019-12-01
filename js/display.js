@@ -55,7 +55,7 @@ function setNewSquare() {
         rNum = parseInt(Math.random() * max);
         f = floor[rNum].childElementCount;
     }
-    c("r=" + rNum);
+    c("randN=" + rNum);
     let top = floor[rNum].getBoundingClientRect().x;
     let left = floor[rNum].getBoundingClientRect().y;
     //setting new square
@@ -85,7 +85,7 @@ function moveBox(side) {
                 let num = box.textContent;
                 let moveTop = top,
                     moveLeft = left;
-                c("box" + top + "-" + left);
+                c("box " + top + "-" + left);
                 if (side == "UP") {
                     c("moving UP");
                     if (top != 0)
@@ -136,25 +136,22 @@ function checkToMove(x, y, num, bDecrese, axis = "top") {
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
     if (x == sizeMtx - 1) {
-        console.log("can not move more");
-        c("x=" + x);
         return parseInt(x);
     }
     x = bDecrese && x > 0 ? x - 1 : x + 1;
     let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
     let floor = document.getElementsByClassName(clName);
-    c("checking =" + floor[0].className);
     let childs = floor[0].childElementCount;
     if (childs == 0) { //recursion while empty floor
         checkToMove(x, y, num, bDecrese, axis);
     } else { //child==1
         let textNum = floor[0].children.item(0).textContent;
         if (textNum == num) {
-            c("xSum=" + x);
+            c("ADD=" + x);
             return parseInt(x); //return to start sum and move right here
         } else {
             x = bDecrese ? x - 1 : x + 1
-            c("xDif=" + x);
+            c("DIFF-Box=" + x);
             //return back box to dont move,or just less move
             return parseInt(x);
         }
