@@ -97,6 +97,7 @@ function moveBox(side) {
 }
 
 function checkToMove(x, y, num) {
+    //this parse mode can not be this way
     if (X == 0) {
         console.log("can not move up");
         return x;
@@ -113,7 +114,8 @@ function checkToMove(x, y, num) {
         console.log("can not move bottom");
         return y;
     }
-    //checking x axis meanwhile test
+    //checking x axis (from bottom to top) meanwhile test
+    //this function works for y (from right to left) too
     let floor = document.getElementsByClassName("pos-" + x - 1 + "-" + y)[0];
     let childs = floor.childElementCount;
     if (childs == 0) { //recursion while empty floor
@@ -126,5 +128,4 @@ function checkToMove(x, y, num) {
             return x - 1; //return back box to dont move,or just less move
         }
     }
-
 }
