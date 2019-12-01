@@ -83,25 +83,29 @@ function moveBox(side) {
                 //get position to know if can move
                 let box = floor[count].children.item(0);
                 let num = box.textContent;
-                let moveTop = 0,
-                    moveLeft = 0;
+                let moveTop = top,
+                    moveLeft = left;
                 c("box" + top + "-" + left);
                 //!UNKNOW return undefined checktomove() when get the max position of the matrix
                 if (side == "UP") {
                     c("moving UP");
-                    moveTop = checkToMove(top, left, num, true); //true for decrese y axis
+                    if (top != 0)
+                        moveTop = checkToMove(top, left, num, true); //true for decrese y axis
                 }
                 if (side == "DOWN") {
                     c("moving DOWN");
-                    moveTop = checkToMove(top, left, num, false); //false for increse y axis
+                    if (top < sizeMtx - 1)
+                        moveTop = checkToMove(top, left, num, false); //false for increse y axis
                 }
                 if (side == "RIGHT") {
                     c("moving RIGHT");
-                    moveLeft = checkToMove(left, top, num, false, "left"); //false for increse x axis
+                    if (left < sizeMtx - 1)
+                        moveLeft = checkToMove(left, top, num, false, "left"); //false for increse x axis
                 }
                 if (side == "LEFT") {
                     c("moving LEFT");
-                    moveLeft = checkToMove(left, top, num, true, "left"); //true for decrese x axis
+                    if (left != 0)
+                        moveLeft = checkToMove(left, top, num, true, "left"); //true for decrese x axis
                 }
                 if (moveTop == top && moveLeft == left) {
                     //dont move, stay there
@@ -130,11 +134,6 @@ function moveBox(side) {
 function checkToMove(x, y, num, bDecrese, axis = "top") {
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
-    if (x == 0) {
-        console.log("can not move less");
-        c("x=" + x);
-        return parseInt(x);
-    }
     if (x == sizeMtx - 1) {
         console.log("can not move more");
         c("x=" + x);
@@ -147,9 +146,9 @@ function checkToMove(x, y, num, bDecrese, axis = "top") {
     c("checking =" + floor[0].className);
     let childs = floor[0].childElementCount;
     if (childs == 0) { //recursion while empty floor
-        checkToMove(x, y, num, bDecrese);
+        checkToMove(x, y, num, bDecrese, axis);
     } else { //child==1
-        let textNum = floor.textContent;
+        let textNum = floor[0].children.item(0).textContent;
         if (textNum == num) {
             c("xSum=" + x);
             return parseInt(x); //return to start sum and move right here
