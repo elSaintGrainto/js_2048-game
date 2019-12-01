@@ -113,6 +113,20 @@ function checkToMove(x, y, num) {
         console.log("can not move bottom");
         return y;
     }
+    //checking x axis meanwhile test
+    let floor = document.getElementsByClassName("pos-" + x - 1 + "-" + y)[0];
+    let childs = floor.childElementCount;
+    if (childs == 0) { //recursion while empty floor
+        checkToMove(x - 1, y, num);
+    } else { //child==1
+        let textNum = floor.textContent;
+        if (textNum == num) {
+            return x; //return to start sum and move right here
+        } else {
+            return x - 1; //return back box to dont move,or just less move
+        }
+    }
+
 
     let atSide = document.getElementsByClassName("pos-" + x + "-" + y);
     if (atSide[0].childElementCount == 1) {
