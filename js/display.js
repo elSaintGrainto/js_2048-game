@@ -96,9 +96,24 @@ function moveBox(side) {
     }
 }
 
-function checkToMove(x, y, pos) {
-    let floor = document.getElementsByClassName(pos);
-    x = x == 0 ? 0 : -1;
+function checkToMove(x, y, num) {
+    if (X == 0) {
+        console.log("can not move up");
+        return x;
+    }
+    if (y == 0) {
+        console.log("can not move left");
+        return y;
+    }
+    if (x == sizeMtx - 1) {
+        console.log("can not move right");
+        return x;
+    }
+    if (y == sizeMtx - 1) {
+        console.log("can not move bottom");
+        return y;
+    }
+
     let atSide = document.getElementsByClassName("pos-" + x + "-" + y);
     if (atSide[0].childElementCount == 1) {
         //check if have same number return same pos
