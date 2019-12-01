@@ -43,7 +43,7 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
-moveBox("RIGHT");
+moveBox("UP");
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
@@ -135,12 +135,12 @@ function moveBox(side) {
 function checkToMove(x, y, num, bDecrese, axis = "top") {
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
-    if (x == sizeMtx - 1) {
+    if (x == sizeMtx - 1 && !bDecrese) {
         console.log("can not move more");
         c("x=" + x);
         return parseInt(x);
     }
-    x = bDecrese && x > 0 ? x - 1 : x + 1;
+    x = bDecrese ? x - 1 : x + 1;
     let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
     let floor = document.getElementsByClassName(clName);
     c("checking =" + floor[0].className);
