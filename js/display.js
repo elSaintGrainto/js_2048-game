@@ -65,10 +65,7 @@ function setNewSquare() {
     }
     box.classList.add("sqr-color");
 }
-/** move box at 1 box length
- * move box if the direction of the movement have one box with the same numberor a free space
- * when the box moved, delete it, sum the nunmbers and conserv the one that was there,
- * finaly change the color of the box
+/** transition effect of box, delete when move to sum
  */
 //TODO
 function sqrMoved() {
@@ -77,24 +74,33 @@ function sqrMoved() {
 //TODO need a function that detect if the floor at the corresponding side
 function moveBox(side) {
     let floor = document.getElementsByClassName("floor");
-    if (side == "up") {
-        let count = 0;
-        for (let top = 0; top < sizeMtx; top++) {
-            for (let left = 0; left < sizeMtx; left++) {
-                let f = floor[count].childElementCount;
-                if (f == 1) {
-                    //get position to know if can move
-                    let box = floor[count].children.item(0);
-                    let num = box.textContent;
-                    console.log("box=" + box);
-
+    let count = 0;
+    for (let top = 0; top < sizeMtx; top++) {
+        for (let left = 0; left < sizeMtx; left++) {
+            let f = floor[count].childElementCount;
+            if (f == 1) {
+                //get position to know if can move
+                let box = floor[count].children.item(0);
+                let num = box.textContent;
+                console.log("box=" + box);
+                if (side == "UP") {
                     let moveHere = checkToMove(top, left, num, true); //true for decrese top axis
                 }
-                count++;
+                if (side == "DOWN") {
+                    let moveHere = checkToMove(top, left, num, false); //true for decrese top axis
+                }
+                if (side == "RIGHT") {
+                    let moveHere = checkToMove(left, top, num, true); //true for decrese top axis
+                }
+                if (side == "LEFT") {
+                    let moveHere = checkToMove(left, top, num, true); //true for decrese top axis
+                }
             }
+            count++;
         }
     }
 }
+
 /**
  * Check if the next floor is empty or have a box. If have a Empty Box, return the position of the box.
  * If have a number check a match in numbers and return this Box position or the floor position at back
