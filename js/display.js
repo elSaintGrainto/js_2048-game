@@ -98,21 +98,13 @@ function moveBox(side) {
 
 function checkToMove(x, y, num) {
     //this parse mode can not be this way
-    if (X == 0) {
-        console.log("can not move up");
+    if (x == 0) {
+        console.log("can not move less");
         return x;
-    }
-    if (y == 0) {
-        console.log("can not move left");
-        return y;
     }
     if (x == sizeMtx - 1) {
-        console.log("can not move right");
+        console.log("can not move more");
         return x;
-    }
-    if (y == sizeMtx - 1) {
-        console.log("can not move bottom");
-        return y;
     }
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
