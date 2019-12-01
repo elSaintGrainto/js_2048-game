@@ -3,6 +3,7 @@
     font-family: sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #222;
 }
 
 :root {
@@ -32,7 +33,7 @@
 .sqr-panel {
     position: relative;
     top: 50px;
-    left: 70px;
+    left: 10px;
     display: flex;
     flex-wrap: wrap;
     background-color: #666;
@@ -41,6 +42,13 @@
     /*calculate the size of the squares and his margins*/
     width: calc(var(--square-size)*5 + var(--marg-sqr));
     height: calc(var(--square-size)*5 + var(--marg-sqr));
+}
+
+@keyframes moveToLeft {
+    0% {
+        transform: translateX(-);
+    }
+    100% {}
 }
 
 

@@ -23,6 +23,7 @@ function generateFloor(size) {
             let d = document.createElement("div");
             d.classList.add("square");
             d.classList.add("floor");
+            d.classList.add(`pos-${i}-${j}`);
             sqrPanel.appendChild(d);
         }
     }
@@ -71,5 +72,43 @@ function setNewSquare() {
  */
 //TODO
 function sqrMoved() {
+
+}
+//TODO need a function that detect if the floor at the corresponding side
+function moveBox(side) {
+    let floor = document.getElementsByClassName("floor");
+    if (side == "up") {
+        let count = 0;
+        for (let x = 0; x < sizeMtx; x++) {
+            for (let y = 0; y < sizeMtx; y++) {
+                let f = floor[count].childElementCount;
+                if (f == 1) {
+                    //get position to know if can move
+                    let box = floor[count].children.item(0);
+                    let num = box.textContent;
+                    console.log("box=" + box);
+                    let pos = "pos-" + x + "-" + y;
+                    checkToMove(x, y, num);
+                }
+                count++;
+            }
+        }
+    }
+}
+
+function checkToMove(x, y, pos) {
+    let floor = document.getElementsByClassName(pos);
+    x = x == 0 ? 0 : -1;
+    let atSide = document.getElementsByClassName("pos-" + x + "-" + y);
+    if (atSide[0].childElementCount == 1) {
+        //check if have same number return same pos
+        let text = atSide[0].childNodes[0].textContent;
+        if (text == floor[0].textContent) {
+            return x;
+        } else { //if have different number return pos +1
+            return x + 1;
+        }
+    }
+
 
 }
