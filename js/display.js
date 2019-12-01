@@ -141,22 +141,26 @@ function checkToMove(x, y, num, bDecrese, axis = "top") {
         return parseInt(x);
     }
     x = bDecrese ? x - 1 : x + 1;
-    let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
-    let floor = document.getElementsByClassName(clName);
-    c("checking =" + floor[0].className);
-    let childs = floor[0].childElementCount;
-    if (childs == 0) { //recursion while empty floor
-        checkToMove(x, y, num, bDecrese, axis);
-    } else { //child==1
-        let textNum = floor[0].children.item(0).textContent;
-        if (textNum == num) {
-            c("xSum=" + x);
-            return parseInt(x); //return to start sum and move right here
-        } else {
-            x = bDecrese ? x - 1 : x + 1
-            c("xDif=" + x);
-            //return back box to dont move,or just less move
-            return parseInt(x);
+    if (x >= 0) {
+        let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
+        let floor = document.getElementsByClassName(clName);
+        c("checking =" + floor[0].className);
+        let childs = floor[0].childElementCount;
+        if (childs == 0) { //recursion while empty floor
+            checkToMove(x, y, num, bDecrese, axis);
+        } else { //child==1
+            let textNum = floor[0].children.item(0).textContent;
+            if (textNum == num) {
+                c("xSum=" + x);
+                return parseInt(x); //return to start sum and move right here
+            } else {
+                x = bDecrese ? x - 1 : x + 1
+                c("xDif=" + x);
+                //return back box to dont move,or just less move
+                return parseInt(x);
+            }
         }
+
     }
+    return 0;
 }
