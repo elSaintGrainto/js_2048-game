@@ -79,16 +79,16 @@ function moveBox(side) {
     let floor = document.getElementsByClassName("floor");
     if (side == "up") {
         let count = 0;
-        for (let x = 0; x < sizeMtx; x++) {
-            for (let y = 0; y < sizeMtx; y++) {
+        for (let top = 0; top < sizeMtx; top++) {
+            for (let left = 0; left < sizeMtx; left++) {
                 let f = floor[count].childElementCount;
                 if (f == 1) {
                     //get position to know if can move
                     let box = floor[count].children.item(0);
                     let num = box.textContent;
                     console.log("box=" + box);
-                    let pos = "pos-" + x + "-" + y;
-                    checkToMove(x, y, num);
+                    let pos = "pos-" + top + "-" + left;
+                    checkToMove(top, left, num);
                 }
                 count++;
             }
