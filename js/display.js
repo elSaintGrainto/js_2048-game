@@ -88,16 +88,24 @@ function moveBox(side) {
                     let num = box.textContent;
                     console.log("box=" + box);
                     let pos = "pos-" + top + "-" + left;
-                    checkToMove(top, left, num);
+                    checkToMove(top, left, num, true); //true for decrese top axis
                 }
                 count++;
             }
         }
     }
 }
-
-function checkToMove(x, y, num) {
-    //this parse mode can not be this way
+/**
+ * Check if the next floor is empty or have a box. If have a Empty Box, return the position of the box.
+ * If have a number check a match in numbers and return this Box position or the floor position at back
+ * @param {Integer} x X axis or Top, represents the position of the box
+ * @param {Integer} y Y axis or Left, represents the position of the box
+ * @param {String} num  represents the number in the box
+ * @param {Boolean} bDecrese if is true this will check from bottom to top, else top to bottom
+ */
+function checkToMove(x, y, num, bDecrese) {
+    //checking x axis (from bottom to top) meanwhile test
+    //this function works for y (from right to left) too
     if (x == 0) {
         console.log("can not move less");
         return x;
@@ -106,18 +114,19 @@ function checkToMove(x, y, num) {
         console.log("can not move more");
         return x;
     }
-    //checking x axis (from bottom to top) meanwhile test
-    //this function works for y (from right to left) too
-    let floor = document.getElementsByClassName("pos-" + x - 1 + "-" + y)[0];
+
+    x = bDecrese ? x - 1 : x + 1;
+    let floor = document.getElementsByClassName("pos-" + x + "-" + y)[0];
     let childs = floor.childElementCount;
     if (childs == 0) { //recursion while empty floor
-        checkToMove(x - 1, y, num);
+        checkToMove(x, y, num);
     } else { //child==1
         let textNum = floor.textContent;
         if (textNum == num) {
             return x; //return to start sum and move right here
         } else {
-            return x - 1; //return back box to dont move,or just less move
+            //return back box to dont move,or just less move
+            return x = bDecrese ? x - 1 : x + 1;
         }
     }
 }
