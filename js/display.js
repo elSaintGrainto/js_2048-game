@@ -127,17 +127,4 @@ function checkToMove(x, y, num) {
         }
     }
 
-
-    let atSide = document.getElementsByClassName("pos-" + x + "-" + y);
-    if (atSide[0].childElementCount == 1) {
-        //check if have same number return same pos
-        let text = atSide[0].childNodes[0].textContent;
-        if (text == floor[0].textContent) {
-            return x;
-        } else { //if have different number return pos +1
-            return x + 1;
-        }
-    }
-
-
 }
