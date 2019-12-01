@@ -86,6 +86,7 @@ function moveBox(side) {
                 let moveTop = 0,
                     moveLeft = 0;
                 c("box" + top + "-" + left);
+                //!UNKNOW return undefined checktomove() when get the max position of the matrix
                 if (side == "UP") {
                     c("moving UP");
                     moveTop = checkToMove(top, left, num, true); //true for decrese y axis
@@ -96,11 +97,11 @@ function moveBox(side) {
                 }
                 if (side == "RIGHT") {
                     c("moving RIGHT");
-                    moveLeft = checkToMove(left, top, num, false); //false for increse x axis
+                    moveLeft = checkToMove(left, top, num, false, "left"); //false for increse x axis
                 }
                 if (side == "LEFT") {
                     c("moving LEFT");
-                    moveLeft = checkToMove(left, top, num, true); //true for decrese x axis
+                    moveLeft = checkToMove(left, top, num, true, "left"); //true for decrese x axis
                 }
                 if (moveTop == top && moveLeft == left) {
                     //dont move, stay there
@@ -110,8 +111,6 @@ function moveBox(side) {
                     c("movingL=" + moveLeft);
                     //do translation
                 }
-
-
             }
             count++;
         }
@@ -128,7 +127,7 @@ function moveBox(side) {
  */
 1, 2
 
-function checkToMove(x, y, num, bDecrese) {
+function checkToMove(x, y, num, bDecrese, axis = "top") {
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
     if (x == 0) {
@@ -142,10 +141,10 @@ function checkToMove(x, y, num, bDecrese) {
         return parseInt(x);
     }
 
-    x = bDecrese ? x - 1 : x + 1;
-    c("checking pos-" + x + "-" + y);
-    let floor = document.getElementsByClassName("pos-" + x + "-" + y);
-    c("checking =" + floor[0]);
+    x = bDecrese && x > 0 ? x - 1 : x + 1;
+    let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
+    let floor = document.getElementsByClassName(clName);
+    c("checking =" + floor[0].className);
     let childs = floor[0].childElementCount;
     if (childs == 0) { //recursion while empty floor
         checkToMove(x, y, num, bDecrese);
@@ -155,7 +154,6 @@ function checkToMove(x, y, num, bDecrese) {
             c("xSum=" + x);
             return parseInt(x); //return to start sum and move right here
         } else {
-
             x = bDecrese ? x - 1 : x + 1
             c("xDif=" + x);
             //return back box to dont move,or just less move
