@@ -86,7 +86,6 @@ function moveBox(side) {
                 let moveTop = top,
                     moveLeft = left;
                 c("box" + top + "-" + left);
-                //!UNKNOW return undefined checktomove() when get the max position of the matrix
                 if (side == "UP") {
                     c("moving UP");
                     if (top != 0)
@@ -128,9 +127,8 @@ function moveBox(side) {
  * @param {Integer} y Y axis or Left, represents the position of the box
  * @param {String} num  represents the number in the box
  * @param {Boolean} bDecrese if is true this will check from bottom to top, else top to bottom
+ * @param {String} axis to know the axis that i am checking , default "top"
  */
-1, 2
-
 function checkToMove(x, y, num, bDecrese, axis = "top") {
     //checking x axis (from bottom to top) meanwhile test
     //this function works for y (from right to left) too
@@ -139,7 +137,6 @@ function checkToMove(x, y, num, bDecrese, axis = "top") {
         c("x=" + x);
         return parseInt(x);
     }
-
     x = bDecrese && x > 0 ? x - 1 : x + 1;
     let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
     let floor = document.getElementsByClassName(clName);
