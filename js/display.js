@@ -43,7 +43,7 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
-moveBox("UP");
+moveBox("LEFT");
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
@@ -72,10 +72,11 @@ function setNewSquare() {
 function sqrMoved() {
 
 }
-//TODO need a function that detect if the floor at the corresponding side
+
 function moveBox(side) {
     let floor = document.getElementsByClassName("floor");
     let count = 0;
+    //TODO change the loop direction depending the side, change top and left
     for (let top = 0; top < sizeMtx; top++) {
         for (let left = 0; left < sizeMtx; left++) {
             let f = floor[count].childElementCount;
@@ -111,8 +112,8 @@ function moveBox(side) {
                     c("nope, im not moving")
                 } else {
                     //correction for bug of return undefined
-                    moveTop = moveTop == undefined ? sizeMtx - 1 : moveTop;
-                    moveLeft = moveLeft == undefined ? sizeMtx - 1 : moveLeft;
+                    moveTop = moveTop < 0 ? sizeMtx - 1 : moveTop;
+                    moveLeft = moveLeft < 0 ? sizeMtx - 1 : moveLeft;
                     c("movingT=" + moveTop);
                     c("movingL=" + moveLeft);
                     //do translation
@@ -133,8 +134,6 @@ function moveBox(side) {
  * @param {String} axis to know the axis that i am checking , default "top"
  */
 function checkToMove(x, y, num, bDecrese, axis = "top") {
-    //checking x axis (from bottom to top) meanwhile test
-    //this function works for y (from right to left) too
     if (x == sizeMtx - 1 && !bDecrese) {
         console.log("can not move more");
         c("x=" + x);
