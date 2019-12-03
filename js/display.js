@@ -140,10 +140,12 @@ function moveBox(side) {
  * @param {String} axis to know the axis that i am checking , default "top"
  */
 function checkToMove(box, x, y, num, bDecrese, axis = "top") {
-    if (x == sizeMtx - 1 && !bDecrese) { //
+    if (x == sizeMtx - 1 && !bDecrese) { //moved to max range of floor, empty place
         let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
         let floor = document.getElementsByClassName(clName);
-        floor[0].appendChild(box);
+        //transition, then remove
+        translateSquare(box, floor[0]);
+        //floor[0].appendChild(box);
         c("max move to " + clName);
         return;
     }
@@ -160,12 +162,18 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
             c("num in floor=" + textNum);
             if (textNum == num && num > 0) {
                 c("xSum=" + x);
-                floor[0].appendChild(box);
+                //transition, then increse, then remove
+                translateSquare(box, floor[0]);
+                //box.ontransitionend=increseBoxNum(floor[0]);
+                //delete append
+                //floor[0].appendChild(box);
                 return; //TODO return to start sum and move right here
             } else {
                 x = bDecrese ? x - 1 : x + 1
                 c("xDif=" + x);
-                floor[0].appendChild(box);
+                //transition, then remove
+                translateSquare(box, floor[0]);
+                //floor[0].appendChild(box);
                 //return back box to dont move,or just less move
                 return;
             }
@@ -175,13 +183,21 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
 /**
  * 
  * @param {HTMLElement} box 
+ */
+function increseBoxNum(firstBox) {
+    firstBox.innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
+    //change color
+}
+
+/**
+ * 
+ * @param {HTMLElement} box 
  * @param {HTMLElement} parent 
  */
 function translateSquare(box, parent) {
-    let clName = "";
-    box.classList.add(clName);
-    let top = parent.getBoundingClientRect().top;
-    let left = parent.getBoundingClientRect().left;
+    let top = parent.getBoundingClientRect().top - box.getBoundingClientRect().top;
+    let left = parent.getBoundingClientRect().left - box.getBoundingClientRect().left;
+    c("MOV top=" + top + ";left=" + left);
     set_translate(box, top, left);
     //on translation end remove  box for sum or not
 }

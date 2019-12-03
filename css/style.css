@@ -17,6 +17,8 @@
     text-align: center;
     line-height: var(--square-size);
     font-size: 35px;
+    transition: transform 0.3s ease-in-out;
+    -webkit-transition: transform 0.3s ease-in-out;
 }
 
 .sqr-color {
