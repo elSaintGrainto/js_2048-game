@@ -45,7 +45,7 @@ setNewSquare();
 setNewSquare();
 
 //right and down need to count down on variables of FOr loop
-moveBox("RIGHT");
+moveBox("DOWN");
 
 
 function setNewSquare() {
@@ -106,7 +106,7 @@ function moveBox(side) {
         for (let top = sizeMtx - 1; top >= 0; top--) {
             for (let left = sizeMtx - 1; left >= 0; left--) {
                 let f = floor[count].childElementCount;
-                if (f >= 1) {
+                if (f == 1) {
                     //get position to know if can move
                     let box = floor[count].children.item(0);
                     let num = box.textContent;
@@ -115,7 +115,7 @@ function moveBox(side) {
                         c("moving DOWN");
                         checkToMove(box, top, left, num, false); //false for increse y axis
                     }
-                    if (side == "RIGHT") {
+                    if (side == "RIGHT") { //!bug moving from 2,2 and 3,2
                         c("moving RIGHT");
                         checkToMove(box, left, top, num, false, "left"); //false for increse x axis
                     }
@@ -142,6 +142,7 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
         let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
         let floor = document.getElementsByClassName(clName);
         floor[0].appendChild(box);
+        c("max move to " + clName);
         return;
     }
     x = bDecrese ? x - 1 : x + 1; //check if can move more
@@ -154,7 +155,8 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
             checkToMove(box, x, y, num, bDecrese, axis);
         } else { //child==1
             let textNum = floor[0].children.item(0).textContent;
-            if (textNum == num) {
+            c("num in floor=" + textNum);
+            if (textNum == num && num > 0) {
                 c("xSum=" + x);
                 floor[0].appendChild(box);
                 return; //return to start sum and move right here
@@ -166,10 +168,11 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 return;
             }
         }
-    } else { //moving to 0 axis, no more places to check
-        let clName = axis == "top" ? "pos-" + 0 + "-" + y : "pos-" + y + "-" + 0;
-        let floor = document.getElementsByClassName(clName);
-        c("moving to " + clName);
-        floor[0].appendChild(box);
     }
+    /* else { //moving to 0 axis, no more places to check
+           let clName = axis == "top" ? "pos-" + 0 + "-" + y : "pos-" + y + "-" + 0;
+           let floor = document.getElementsByClassName(clName);
+           c("moving to " + clName);
+           floor[0].appendChild(box);
+       } */
 }
