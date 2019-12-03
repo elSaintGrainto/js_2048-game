@@ -43,6 +43,8 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
+setNewSquare();
+setNewSquare();
 
 //right and down need to count down on variables of FOr loop
 moveBox("RIGHT");
@@ -143,9 +145,7 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
     if (x == sizeMtx - 1 && !bDecrese) { //moved to max range of floor, empty place
         let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
         let floor = document.getElementsByClassName(clName);
-        //transition, then remove
         translateSquare(box, floor[0]);
-        //floor[0].appendChild(box);
         c("max move to " + clName);
         return;
     }
@@ -164,9 +164,11 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 c("xSum=" + x);
                 //transition, then increse, then remove
                 translateSquare(box, floor[0]);
-                //box.ontransitionend=increseBoxNum(floor[0]);
-                //delete append
-                //floor[0].appendChild(box);
+                box.ontransitionend = function(e) {
+                    increseBoxNum(floor[0]);
+                    box.parentNode.removeChild(box);
+                }
+
                 return; //TODO return to start sum and move right here
             } else {
                 x = bDecrese ? x - 1 : x + 1
@@ -182,10 +184,11 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
 }
 /**
  * 
- * @param {HTMLElement} box 
+ * @param {HTMLElement} firstBox 
  */
 function increseBoxNum(firstBox) {
-    firstBox.innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
+    firstBox.children.item(0).innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
+
     //change color
 }
 
@@ -199,7 +202,6 @@ function translateSquare(box, parent) {
     let left = parent.getBoundingClientRect().left - box.getBoundingClientRect().left;
     c("MOV top=" + top + ";left=" + left);
     set_translate(box, top, left);
-    //on translation end remove  box for sum or not
 }
 /**
  * 
