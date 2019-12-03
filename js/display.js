@@ -43,7 +43,10 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
+
+//right and down need to count down on variables of FOr loop
 moveBox("RIGHT");
+
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
@@ -72,88 +75,99 @@ function setNewSquare() {
 function sqrMoved() {
 
 }
-//TODO need a function that detect if the floor at the corresponding side
+
 function moveBox(side) {
     let floor = document.getElementsByClassName("floor");
     let count = 0;
-    for (let top = 0; top < sizeMtx; top++) {
-        for (let left = 0; left < sizeMtx; left++) {
-            let f = floor[count].childElementCount;
-            if (f == 1) {
-                //get position to know if can move
-                let box = floor[count].children.item(0);
-                let num = box.textContent;
-                let moveTop = top,
-                    moveLeft = left;
-                c("box " + top + "-" + left);
-                if (side == "UP") {
-                    c("moving UP");
-                    if (top != 0)
-                        moveTop = checkToMove(top, left, num, true); //true for decrese y axis
+    //TODO change the loop direction depending the side, change top and left
+    if (side == "UP" || side == "LEFT") {
+        for (let top = 0; top < sizeMtx; top++) {
+            for (let left = 0; left < sizeMtx; left++) {
+                let f = floor[count].childElementCount;
+                if (f >= 1) {
+                    //get position to know if can move
+                    let box = floor[count].children.item(0);
+                    let num = box.textContent;
+                    c("box" + top + "-" + left);
+                    if (side == "UP") {
+                        c("moving UP");
+                        checkToMove(box, top, left, num, true); //true for decrese y axis
+                    }
+                    if (side == "LEFT") {
+                        c("moving LEFT");
+                        checkToMove(box, left, top, num, true, "left"); //true for decrese x axis
+                    }
                 }
-                if (side == "DOWN") {
-                    c("moving DOWN");
-                    if (top < sizeMtx - 1)
-                        moveTop = checkToMove(top, left, num, false); //false for increse y axis
-                }
-                if (side == "RIGHT") {
-                    c("moving RIGHT");
-                    if (left < sizeMtx - 1)
-                        moveLeft = checkToMove(left, top, num, false, "left"); //false for increse x axis
-                }
-                if (side == "LEFT") {
-                    c("moving LEFT");
-                    if (left != 0)
-                        moveLeft = checkToMove(left, top, num, true, "left"); //true for decrese x axis
-                }
-                if (moveTop == top && moveLeft == left) {
-                    //dont move, stay there
-                    c("nope, im not moving")
-                } else {
-                    //correction for bug of return undefined
-                    moveTop = moveTop == undefined ? sizeMtx - 1 : moveTop;
-                    moveLeft = moveLeft == undefined ? sizeMtx - 1 : moveLeft;
-                    c("movingT=" + moveTop);
-                    c("movingL=" + moveLeft);
-                    //do translation
-                }
+                count++;
             }
-            count++;
         }
     }
+    count = floor.length - 1;
+    if (side == "RIGHT" || side == "DOWN") {
+        for (let top = sizeMtx - 1; top >= 0; top--) {
+            for (let left = sizeMtx - 1; left >= 0; left--) {
+                let f = floor[count].childElementCount;
+                if (f == 1) {
+                    //get position to know if can move
+                    let box = floor[count].children.item(0);
+                    let num = box.textContent;
+                    c("box" + top + "-" + left);
+                    if (side == "DOWN") {
+                        c("moving DOWN");
+                        checkToMove(box, top, left, num, false); //false for increse y axis
+                    }
+                    if (side == "RIGHT") {
+                        c("moving RIGHT");
+                        checkToMove(box, left, top, num, false, "left"); //false for increse x axis
+                    }
+                }
+                count--;
+            }
+        }
+    }
+
 }
 
 /**
  * Check if the next floor is empty or have a box. If have a Empty Box, return the position of the box.
  * If have a number check a match in numbers and return this Box position or the floor position at back
+ * @param {HTMLDivElement} box htmlElement that contain the square with the number
  * @param {Integer} x X axis or Top, represents the position of the box
  * @param {Integer} y Y axis or Left, represents the position of the box
  * @param {String} num  represents the number in the box
  * @param {Boolean} bDecrese if is true this will check from bottom to top, else top to bottom
  * @param {String} axis to know the axis that i am checking , default "top"
  */
-function checkToMove(x, y, num, bDecrese, axis = "top") {
-    //checking x axis (from bottom to top) meanwhile test
-    //this function works for y (from right to left) too
-    if (x == sizeMtx - 1) {
-        return parseInt(x);
+function checkToMove(box, x, y, num, bDecrese, axis = "top") {
+    if (x == sizeMtx - 1 && !bDecrese) { //
+        let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
+        let floor = document.getElementsByClassName(clName);
+        floor[0].appendChild(box);
+        c("max move to " + clName);
+        return;
     }
-    x = bDecrese && x > 0 ? x - 1 : x + 1;
-    let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
-    let floor = document.getElementsByClassName(clName);
-    let childs = floor[0].childElementCount;
-    if (childs == 0) { //recursion while empty floor
-        checkToMove(x, y, num, bDecrese, axis);
-    } else { //child==1
-        let textNum = floor[0].children.item(0).textContent;
-        if (textNum == num) {
-            c("ADD=" + x);
-            return parseInt(x); //return to start sum and move right here
-        } else {
-            x = bDecrese ? x - 1 : x + 1
-            c("DIFF-Box=" + x);
-            //return back box to dont move,or just less move
-            return parseInt(x);
+    x = bDecrese ? x - 1 : x + 1; //check if can move more
+    if (x >= 0) { //moving to next floor seeking for a match
+        let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
+        let floor = document.getElementsByClassName(clName);
+        c("checking =" + floor[0].className);
+        let childs = floor[0].childElementCount;
+        if (childs == 0) { //recursion while empty floor
+            checkToMove(box, x, y, num, bDecrese, axis);
+        } else { //child==1
+            let textNum = floor[0].children.item(0).textContent;
+            c("num in floor=" + textNum);
+            if (textNum == num && num > 0) {
+                c("xSum=" + x);
+                floor[0].appendChild(box);
+                return; //TODO return to start sum and move right here
+            } else {
+                x = bDecrese ? x - 1 : x + 1
+                c("xDif=" + x);
+                floor[0].appendChild(box);
+                //return back box to dont move,or just less move
+                return;
+            }
         }
     }
 }
