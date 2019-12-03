@@ -41,9 +41,13 @@ function calculateSizeFloor() {
 
 //calculateSizeFloor();
 generateFloor(sizeMtx);
+setNewSquare(4);
+setNewSquare(4);
+setNewSquare(4);
 setNewSquare();
+setNewSquare(4);
 setNewSquare();
-setNewSquare();
+setNewSquare(4);
 setNewSquare();
 
 //right and down need to count down on variables of FOr loop
@@ -51,7 +55,8 @@ moveBox("RIGHT");
 
 
 
-function setNewSquare() {
+function setNewSquare(number) {
+    number = number != null ? number : 2;
     let floor = document.getElementsByClassName("floor");
     let max = sizeMtx * sizeMtx;
     let rNum = parseInt(Math.random() * max);
@@ -65,7 +70,7 @@ function setNewSquare() {
     let top = floor[rNum].getBoundingClientRect().x;
     let left = floor[rNum].getBoundingClientRect().y;
     //setting new square
-    let sqr = new Square(2, top, left);
+    let sqr = new Square(number, top, left);
     let box = sqr.square;
     if (box != null) {
         floor[rNum].appendChild(box);
@@ -165,7 +170,7 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 //transition, then increse, then remove
                 translateSquare(box, floor[0]);
                 box.ontransitionend = setTimeout(function() {
-                    increseBoxNum(floor[0]);
+                    increseBoxNum(floor[0]); //!ERROR while increse a number that has incresed with otherr
                     box.parentNode.removeChild(box);
                 }, 200);
 
