@@ -44,6 +44,9 @@ generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
 moveBox("LEFT");
+moveBox("RIGHT");
+moveBox("UP");
+moveBox("DOWN");
 
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
@@ -80,40 +83,49 @@ function moveBox(side) {
     for (let top = 0; top < sizeMtx; top++) {
         for (let left = 0; left < sizeMtx; left++) {
             let f = floor[count].childElementCount;
+            let box = floor[count].children;
             if (f == 1) {
                 //get position to know if can move
                 let box = floor[count].children.item(0);
                 let num = box.textContent;
-                let moveTop = top,
-                    moveLeft = left;
+                let moveTop,
+                    moveLeft;
                 c("box" + top + "-" + left);
                 if (side == "UP") {
                     c("moving UP");
-                    if (top != 0)
+                    if (top >= 0) {
+                        moveLeft = left;
                         moveTop = checkToMove(top, left, num, true); //true for decrese y axis
+                    }
                 }
                 if (side == "DOWN") {
                     c("moving DOWN");
-                    if (top < sizeMtx - 1)
+                    if (top < sizeMtx - 1) {
+                        moveLeft = left;
                         moveTop = checkToMove(top, left, num, false); //false for increse y axis
+                    }
                 }
                 if (side == "RIGHT") {
                     c("moving RIGHT");
-                    if (left < sizeMtx - 1)
+                    if (left < sizeMtx - 1) {
+                        moveTop = top;
                         moveLeft = checkToMove(left, top, num, false, "left"); //false for increse x axis
+                    }
                 }
                 if (side == "LEFT") {
                     c("moving LEFT");
-                    if (left != 0)
+                    if (left >= 0) {
+                        moveTop = top;
                         moveLeft = checkToMove(left, top, num, true, "left"); //true for decrese x axis
+                    }
                 }
                 if (moveTop == top && moveLeft == left) {
                     //dont move, stay there
                     c("nope, im not moving")
                 } else {
                     //correction for bug of return undefined
-                    moveTop = moveTop < 0 ? sizeMtx - 1 : moveTop;
-                    moveLeft = moveLeft < 0 ? sizeMtx - 1 : moveLeft;
+                    moveTop = moveTop == undefined ? sizeMtx - 1 : moveTop;
+                    moveLeft = moveLeft == undefined ? sizeMtx - 1 : moveLeft;
                     c("movingT=" + moveTop);
                     c("movingL=" + moveLeft);
                     //do translation
@@ -136,8 +148,10 @@ function moveBox(side) {
 function checkToMove(x, y, num, bDecrese, axis = "top") {
     if (x == sizeMtx - 1 && !bDecrese) {
         console.log("can not move more");
+        //!the function works good in general but his think is somthing weird
+        //!bug that when get the max size of a matrix it return undefined or 0
         c("x=" + x);
-        return parseInt(x);
+        return x;
     }
     x = bDecrese ? x - 1 : x + 1;
     if (x >= 0) {
