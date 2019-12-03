@@ -88,48 +88,41 @@ function moveBox(side) {
                 //get position to know if can move
                 let box = floor[count].children.item(0);
                 let num = box.textContent;
-                let moveTop,
-                    moveLeft;
+
                 c("box" + top + "-" + left);
                 if (side == "UP") {
                     c("moving UP");
                     if (top >= 0) {
-                        moveLeft = left;
-                        moveTop = checkToMove(top, left, num, true); //true for decrese y axis
+                        checkToMove(box, top, left, num, true); //true for decrese y axis
                     }
                 }
                 if (side == "DOWN") {
                     c("moving DOWN");
                     if (top < sizeMtx - 1) {
-                        moveLeft = left;
-                        moveTop = checkToMove(top, left, num, false); //false for increse y axis
+                        checkToMove(box, top, left, num, false); //false for increse y axis
                     }
                 }
                 if (side == "RIGHT") {
                     c("moving RIGHT");
                     if (left < sizeMtx - 1) {
-                        moveTop = top;
-                        moveLeft = checkToMove(left, top, num, false, "left"); //false for increse x axis
+                        checkToMove(box, left, top, num, false, "left"); //false for increse x axis
                     }
                 }
                 if (side == "LEFT") {
                     c("moving LEFT");
                     if (left >= 0) {
-                        moveTop = top;
-                        moveLeft = checkToMove(left, top, num, true, "left"); //true for decrese x axis
+
+                        checkToMove(box, left, top, num, true, "left"); //true for decrese x axis
                     }
                 }
-                if (moveTop == top && moveLeft == left) {
+                /* if (moveTop == top && moveLeft == left) {
                     //dont move, stay there
                     c("nope, im not moving")
                 } else {
                     //correction for bug of return undefined
-                    moveTop = moveTop == undefined ? sizeMtx - 1 : moveTop;
-                    moveLeft = moveLeft == undefined ? sizeMtx - 1 : moveLeft;
-                    c("movingT=" + moveTop);
-                    c("movingL=" + moveLeft);
+                    //if move check the children num and summ the numbers
                     //do translation
-                }
+                } */
             }
             count++;
         }
@@ -139,41 +132,48 @@ function moveBox(side) {
 /**
  * Check if the next floor is empty or have a box. If have a Empty Box, return the position of the box.
  * If have a number check a match in numbers and return this Box position or the floor position at back
+ * @param {HTMLDivElement} box
  * @param {Integer} x X axis or Top, represents the position of the box
  * @param {Integer} y Y axis or Left, represents the position of the box
  * @param {String} num  represents the number in the box
  * @param {Boolean} bDecrese if is true this will check from bottom to top, else top to bottom
  * @param {String} axis to know the axis that i am checking , default "top"
  */
-function checkToMove(x, y, num, bDecrese, axis = "top") {
-    if (x == sizeMtx - 1 && !bDecrese) {
+function checkToMove(box, x, y, num, bDecrese, axis = "top") {
+    if (x == sizeMtx - 1 && !bDecrese) { //
         console.log("can not move more");
-        //!the function works good in general but his think is somthing weird
-        //!bug that when get the max size of a matrix it return undefined or 0
-        c("x=" + x);
-        return x;
+        let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
+        let floor = document.getElementsByClassName(clName);
+        floor[0].appendChild(box);
+        return;
     }
-    x = bDecrese ? x - 1 : x + 1;
-    if (x >= 0) {
+    x = bDecrese ? x - 1 : x + 1; //check if can move more
+    if (x >= 0) { //moving to next floor seeking for a match
         let clName = axis == "top" ? "pos-" + x + "-" + y : "pos-" + y + "-" + x;
         let floor = document.getElementsByClassName(clName);
         c("checking =" + floor[0].className);
         let childs = floor[0].childElementCount;
         if (childs == 0) { //recursion while empty floor
-            checkToMove(x, y, num, bDecrese, axis);
+            checkToMove(box, x, y, num, bDecrese, axis);
         } else { //child==1
             let textNum = floor[0].children.item(0).textContent;
             if (textNum == num) {
                 c("xSum=" + x);
-                return parseInt(x); //return to start sum and move right here
+                floor[0].appendChild(box);
+                return; //return to start sum and move right here
             } else {
                 x = bDecrese ? x - 1 : x + 1
                 c("xDif=" + x);
+                floor[0].appendChild(box);
                 //return back box to dont move,or just less move
-                return parseInt(x);
+                return;
             }
         }
 
     }
-    return 0;
+    let clName = axis == "top" ? "pos-" + 0 + "-" + y : "pos-" + y + "-" + 0;
+    let floor = document.getElementsByClassName(clName);
+    c("moving to " + clName);
+    floor[0].appendChild(box);
+    return;
 }
