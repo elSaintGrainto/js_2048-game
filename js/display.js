@@ -48,6 +48,7 @@ setNewSquare();
 moveBox("RIGHT");
 
 
+
 function setNewSquare() {
     let floor = document.getElementsByClassName("floor");
     let max = sizeMtx * sizeMtx;
@@ -170,4 +171,29 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
             }
         }
     }
+}
+/**
+ * 
+ * @param {HTMLElement} box 
+ * @param {HTMLElement} parent 
+ */
+function translateSquare(box, parent) {
+    let clName = "";
+    box.classList.add(clName);
+    let top = parent.getBoundingClientRect().top;
+    let left = parent.getBoundingClientRect().left;
+    set_translate(box, top, left);
+    //on translation end remove  box for sum or not
+}
+/**
+ * 
+ * @param {HTMLElement} e 
+ * @param {Integer} pix 
+ */
+function set_translate(e, top, left) {
+    e.style["-webkit-transform"] = "translate(" + top + "px, " + left + "px)";
+    e.style["-moz-transform"] = "translate(" + top + "px, " + left + "px)";
+    e.style["-ms-transform"] = "translate(" + top + "px, " + left + "px)";
+    e.style["-o-transform"] = "translate(" + top + "px, " + left + "px)";
+    e.style["transform"] = "translate(" + top + "px, " + left + "px)";
 }
