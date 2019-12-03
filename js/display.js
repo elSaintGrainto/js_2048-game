@@ -164,10 +164,11 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 c("xSum=" + x);
                 //transition, then increse, then remove
                 translateSquare(box, floor[0]);
-                box.ontransitionend = function(e) {
+                box.ontransitionend = setTimeout(function() {
                     increseBoxNum(floor[0]);
                     box.parentNode.removeChild(box);
-                }
+                }, 200);
+
 
                 return; //TODO return to start sum and move right here
             } else {
