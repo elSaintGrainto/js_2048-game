@@ -43,8 +43,9 @@ function calculateSizeFloor() {
 generateFloor(sizeMtx);
 setNewSquare();
 setNewSquare();
+
 //right and down need to count down on variables of FOr loop
-moveBox("UP");
+moveBox("RIGHT");
 
 
 function setNewSquare() {
@@ -79,41 +80,57 @@ function moveBox(side) {
     let floor = document.getElementsByClassName("floor");
     let count = 0;
     //TODO change the loop direction depending the side, change top and left
-    for (let top = 0; top < sizeMtx; top++) {
-        for (let left = 0; left < sizeMtx; left++) {
-            let f = floor[count].childElementCount;
-            let box = floor[count].children;
-            if (f == 1) {
-                //get position to know if can move
-                let box = floor[count].children.item(0);
-                let num = box.textContent;
-                c("box" + top + "-" + left);
-                if (side == "UP") {
-                    c("moving UP");
-                    checkToMove(box, top, left, num, true); //true for decrese y axis
+    if (side == "UP" || side == "LEFT") {
+        for (let top = 0; top < sizeMtx; top++) {
+            for (let left = 0; left < sizeMtx; left++) {
+                let f = floor[count].childElementCount;
+                if (f >= 1) {
+                    //get position to know if can move
+                    let box = floor[count].children.item(0);
+                    let num = box.textContent;
+                    c("box" + top + "-" + left);
+                    if (side == "UP") {
+                        c("moving UP");
+                        checkToMove(box, top, left, num, true); //true for decrese y axis
+                    }
+                    if (side == "LEFT") {
+                        c("moving LEFT");
+                        checkToMove(box, left, top, num, true, "left"); //true for decrese x axis
+                    }
                 }
-                if (side == "DOWN") {
-                    c("moving DOWN");
-                    checkToMove(box, top, left, num, false); //false for increse y axis
-                }
-                if (side == "RIGHT") {
-                    c("moving RIGHT");
-                    checkToMove(box, left, top, num, false, "left"); //false for increse x axis
-                }
-                if (side == "LEFT") {
-                    c("moving LEFT");
-                    checkToMove(box, left, top, num, true, "left"); //true for decrese x axis
-                }
+                count++;
             }
-            count++;
         }
     }
+    if (side == "RIGHT" || side == "DOWN") {
+        for (let top = sizeMtx - 1; top >= 0; top--) {
+            for (let left = sizeMtx - 1; left >= 0; left--) {
+                let f = floor[count].childElementCount;
+                if (f >= 1) {
+                    //get position to know if can move
+                    let box = floor[count].children.item(0);
+                    let num = box.textContent;
+                    c("box" + top + "-" + left);
+                    if (side == "DOWN") {
+                        c("moving DOWN");
+                        checkToMove(box, top, left, num, false); //false for increse y axis
+                    }
+                    if (side == "RIGHT") {
+                        c("moving RIGHT");
+                        checkToMove(box, left, top, num, false, "left"); //false for increse x axis
+                    }
+                }
+                count++;
+            }
+        }
+    }
+
 }
 
 /**
  * Check if the next floor is empty or have a box. If have a Empty Box, return the position of the box.
  * If have a number check a match in numbers and return this Box position or the floor position at back
- * @param {HTMLDivElement} box
+ * @param {HTMLDivElement} box htmlelement that contain the square with the number
  * @param {Integer} x X axis or Top, represents the position of the box
  * @param {Integer} y Y axis or Left, represents the position of the box
  * @param {String} num  represents the number in the box
@@ -149,7 +166,6 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 return;
             }
         }
-
     } else { //moving to 0 axis, no more places to check
         let clName = axis == "top" ? "pos-" + 0 + "-" + y : "pos-" + y + "-" + 0;
         let floor = document.getElementsByClassName(clName);
