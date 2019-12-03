@@ -45,7 +45,7 @@ setNewSquare();
 setNewSquare();
 
 //right and down need to count down on variables of FOr loop
-moveBox("DOWN");
+moveBox("RIGHT");
 
 
 function setNewSquare() {
@@ -102,6 +102,7 @@ function moveBox(side) {
             }
         }
     }
+    count = floor.length - 1;
     if (side == "RIGHT" || side == "DOWN") {
         for (let top = sizeMtx - 1; top >= 0; top--) {
             for (let left = sizeMtx - 1; left >= 0; left--) {
@@ -115,12 +116,12 @@ function moveBox(side) {
                         c("moving DOWN");
                         checkToMove(box, top, left, num, false); //false for increse y axis
                     }
-                    if (side == "RIGHT") { //!bug moving from 2,2 and 3,2
+                    if (side == "RIGHT") {
                         c("moving RIGHT");
                         checkToMove(box, left, top, num, false, "left"); //false for increse x axis
                     }
                 }
-                count++;
+                count--;
             }
         }
     }
@@ -130,7 +131,7 @@ function moveBox(side) {
 /**
  * Check if the next floor is empty or have a box. If have a Empty Box, return the position of the box.
  * If have a number check a match in numbers and return this Box position or the floor position at back
- * @param {HTMLDivElement} box htmlelement that contain the square with the number
+ * @param {HTMLDivElement} box htmlElement that contain the square with the number
  * @param {Integer} x X axis or Top, represents the position of the box
  * @param {Integer} y Y axis or Left, represents the position of the box
  * @param {String} num  represents the number in the box
@@ -159,7 +160,7 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
             if (textNum == num && num > 0) {
                 c("xSum=" + x);
                 floor[0].appendChild(box);
-                return; //return to start sum and move right here
+                return; //TODO return to start sum and move right here
             } else {
                 x = bDecrese ? x - 1 : x + 1
                 c("xDif=" + x);
@@ -169,10 +170,4 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
             }
         }
     }
-    /* else { //moving to 0 axis, no more places to check
-           let clName = axis == "top" ? "pos-" + 0 + "-" + y : "pos-" + y + "-" + 0;
-           let floor = document.getElementsByClassName(clName);
-           c("moving to " + clName);
-           floor[0].appendChild(box);
-       } */
 }
