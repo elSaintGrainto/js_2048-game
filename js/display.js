@@ -207,9 +207,9 @@ function translateSquare(box, parent) {
  * @param {Integer} pix 
  */
 function set_translate(e, top, left) {
-    e.style["-webkit-transform"] = "translate(" + top + "px, " + left + "px)";
-    e.style["-moz-transform"] = "translate(" + top + "px, " + left + "px)";
-    e.style["-ms-transform"] = "translate(" + top + "px, " + left + "px)";
-    e.style["-o-transform"] = "translate(" + top + "px, " + left + "px)";
-    e.style["transform"] = "translate(" + top + "px, " + left + "px)";
+    e.style["-webkit-transform"] = "translate(" + left + "px, " + top + "px)";
+    e.style["-moz-transform"] = "translate(" + left + "px, " + top + "px)";
+    e.style["-ms-transform"] = "translate(" + left + "px, " + top + "px)";
+    e.style["-o-transform"] = "translate(" + left + "px, " + top + "px)";
+    e.style["transform"] = "translate(" + left + "px, " + top + "px)";
 }
