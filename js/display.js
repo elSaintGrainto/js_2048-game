@@ -44,12 +44,9 @@ generateFloor(sizeMtx);
 setNewSquare(4);
 setNewSquare(4);
 setNewSquare(4);
-setNewSquare();
 setNewSquare(4);
 setNewSquare();
-setNewSquare(4);
 setNewSquare();
-
 //right and down need to count down on variables of FOr loop
 moveBox("RIGHT");
 
@@ -76,12 +73,6 @@ function setNewSquare(number) {
         floor[rNum].appendChild(box);
     }
     box.classList.add("sqr-color");
-}
-/** transition effect of box, delete when move to sum
- */
-//TODO
-function sqrMoved() {
-
 }
 
 function moveBox(side) {
@@ -152,7 +143,7 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
         let floor = document.getElementsByClassName(clName);
         translateSquare(box, floor[0]);
         c("max move to " + clName);
-        return;
+        return 0;
     }
     x = bDecrese ? x - 1 : x + 1; //check if can move more
     if (x >= 0) { //moving to next floor seeking for a match
@@ -183,7 +174,7 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 translateSquare(box, floor[0]);
                 //floor[0].appendChild(box);
                 //return back box to dont move,or just less move
-                return;
+                return 0;
             }
         }
     }
@@ -193,9 +184,14 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
  * @param {HTMLElement} firstBox 
  */
 function increseBoxNum(firstBox) {
-    firstBox.children.item(0).innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
+    if (firstBox.children.item(0) == null) {
+        return -1;
+    } else {
+        firstBox.children.item(0).innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
+        return 1;
+        //change color
+    }
 
-    //change color
 }
 
 /**
