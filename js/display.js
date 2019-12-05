@@ -161,8 +161,14 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 //transition, then increse, then remove
                 translateSquare(box, floor[0]);
                 box.ontransitionend = setTimeout(function() {
-                    increseBoxNum(floor[0]); //!ERROR while increse a number that has incresed with otherr
-                    box.parentNode.removeChild(box);
+                    if (increseBoxNum(floor[0]) == 1) {
+                        box.parentNode.removeChild(box);
+                        c("ADDING")
+                    } else {
+                        checkToMove(box, x, y, num, bDecrese, axis);
+                        c("NEXT")
+                    }
+                    //!ERROR while increse a number that has incresed with otherr
                 }, 200);
 
 
