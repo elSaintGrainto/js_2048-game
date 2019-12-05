@@ -214,7 +214,8 @@ function translateSquare(box, parent) {
 /**
  * 
  * @param {HTMLElement} e 
- * @param {Integer} pix 
+ * @param {Integer} top
+ * @param {Integer} left
  */
 function set_translate(e, top, left) {
     e.style["-webkit-transform"] = "translate(" + left + "px, " + top + "px)";
