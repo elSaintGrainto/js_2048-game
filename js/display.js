@@ -14,13 +14,36 @@ let keyMap = {
     39: "RIGHT", // Right
     40: "DOWN", // Down
     37: "LEFT", // Left
-
+    75: "UP", // Vim up
+    76: "RIGHT", // Vim right
+    74: "DOWN", // Vim down
+    72: "LEFT", // Vim left
     87: "UP", // W
     68: "RIGHT", // D
     83: "DOWN", // S
     65: "LEFT" // A
 };
+window.onload = function(p) {
+    document.addEventListener("keydown", function(event) {
+        let dir = keyMap[event.which];
+        if (dir != undefined) {
+            c(dir);
+            moveBox(dir);
+        }
 
+    })
+}
+window.onload = function(params) {
+    document.addEventListener("keypress", function(evt) {
+        alert("onkeypress handler: \n" +
+            "keyCode property: " + evt.keyCode + "\n" +
+            "which property: " + evt.which + "\n" +
+            "charCode property: " + evt.charCode + "\n" +
+            "Character Key Pressed: " +
+            String.fromCharCode(evt.charCode) + "\n"
+        );
+    })
+}
 
 //maybe use grid or flexbox to position it the squares
 /**
