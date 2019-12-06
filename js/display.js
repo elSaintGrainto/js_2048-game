@@ -182,8 +182,9 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
     }
 }
 /**
- * 
- * @param {HTMLElement} firstBox 
+ * Get the number in the Element and set the doble of it
+ * (recomendation) use the box that not need to move 
+ * @param {HTMLElement} firstBox the box that contain the number to change
  */
 function increseBoxNum(firstBox) {
     if (firstBox.children.item(0) == null) {
@@ -206,9 +207,9 @@ function compareBox(box, parent) {
 }
 
 /**
- * 
- * @param {HTMLElement} box 
- * @param {HTMLElement} parent 
+ * Extract the location of the parent to move the box.Then start to translate it
+ * @param {HTMLElement} box Element to move 
+ * @param {HTMLElement} parent Element to extract his location
  */
 function translateSquare(box, parent) {
     let top = parent.getBoundingClientRect().top - box.getBoundingClientRect().top;
@@ -217,7 +218,7 @@ function translateSquare(box, parent) {
     set_translate(box, top, left);
 }
 /**
- * move the Element from his actual location to the location asigned
+ * Move the Element from his actual location to the location asigned
  * @param {HTMLElement} e Element asigned to move
  * @param {Integer} top x axis to set
  * @param {Integer} left y axis to set
