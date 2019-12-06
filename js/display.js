@@ -10,38 +10,31 @@ let posX = 0,
     posY = 0;
 let colors = ["#edf0ce", "#f0d999", "#f5ae67", "#e0894a", "#f2422e", "#ffea2e", "#f7b819"];
 let keyMap = {
+    //!arrow keys not detected
     38: "UP", // Up
     39: "RIGHT", // Right
     40: "DOWN", // Down
     37: "LEFT", // Left
-    75: "UP", // Vim up
-    76: "RIGHT", // Vim right
-    74: "DOWN", // Vim down
-    72: "LEFT", // Vim left
     87: "UP", // W
     68: "RIGHT", // D
     83: "DOWN", // S
-    65: "LEFT" // A
+    65: "LEFT", // A
+    119: "UP", // w
+    100: "RIGHT", // d
+    115: "DOWN", // s
+    97: "LEFT" // a
+
 };
-window.onload = function(p) {
-    document.addEventListener("keydown", function(event) {
-        let dir = keyMap[event.which];
+
+window.onload = function(params) {
+    document.addEventListener("keypress", function(evt) {
+
+        let dir = keyMap[evt.which];
+        c(dir);
         if (dir != undefined) {
             c(dir);
             moveBox(dir);
         }
-
-    })
-}
-window.onload = function(params) {
-    document.addEventListener("keypress", function(evt) {
-        alert("onkeypress handler: \n" +
-            "keyCode property: " + evt.keyCode + "\n" +
-            "which property: " + evt.which + "\n" +
-            "charCode property: " + evt.charCode + "\n" +
-            "Character Key Pressed: " +
-            String.fromCharCode(evt.charCode) + "\n"
-        );
     })
 }
 
