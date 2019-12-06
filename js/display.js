@@ -44,6 +44,15 @@ function calculateSizeFloor() {
  * @param {HTMLElement} elementWithNumber 
  */
 function setBackground(elementWithNumber) {
+    //numbers : 2,4,8,16,32,64,128,256.512,1024,2048
+    let numOfElem = parseInt(elementWithNumber.textContent);
+    let n = calcColor(numOfElem, 0);
+    elementWithNumber.style.backgroundColor = colors[n];
+}
+
+function calcColor(n, c) {
+    if (n == 2) return c;
+    if (n > 2) calcColor(n / 2, c++);
 
 }
 //calculateSizeFloor();
