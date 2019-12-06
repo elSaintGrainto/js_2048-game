@@ -193,7 +193,7 @@ function increseBoxNum(firstBox) {
         return -1;
     } else {
         //correect inner = this *2
-        firstBox.children.item(0).innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
+        firstBox.children.item(0).innerHTML = parseInt(firstBox.textContent) * 2;
         return 1;
         //change color
     }
