@@ -11,7 +11,7 @@ let sizeSqr = 50;
 let sizeMtx = 4;
 let posX = 0,
     posY = 0;
-let colors = ["#f5c79d", "#f0d999"];
+let colors = ["#edf0ce", "#f0d999", "#f5ae67", "#e0894a", "#f2422e", "#ffea2e", "#f7b819"];
 //maybe use grid or flexbox to position it the squares
 /**
  * Generate a matrix of squares with "floor" class in it and apped them on sqr-panel
@@ -50,14 +50,22 @@ function setBackground(elementWithNumber) {
     elementWithNumber.style.backgroundColor = colors[n];
 }
 
-function calcColor(n, c) {
-    if (n == 2) return c;
-    if (n > 2) calcColor(n / 2, c++);
-
+function calcColor(n, count) {
+    c("c=" + count);
+    if (n == 2) return count;
+    else {
+        count++;
+        return calcColor(n / 2, count);
+    }
 }
 //calculateSizeFloor();
 generateFloor(sizeMtx);
+setNewSquare();
 setNewSquare(4);
+setNewSquare(8);
+setNewSquare(16);
+setNewSquare(32);
+setNewSquare(64);
 setNewSquare(4);
 setNewSquare(4);
 
@@ -83,6 +91,7 @@ function setNewSquare(number) {
     //setting new square
     let sqr = new Square(number, top, left);
     let box = sqr.square;
+    setBackground(box);
     if (box != null) {
         floor[rNum].appendChild(box);
     }
@@ -203,10 +212,12 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
  * @param {HTMLElement} firstBox the box that contain the number to change
  */
 function increseBoxNum(firstBox) {
-    if (firstBox.children.item(0) == null) {
+    let box = firstBox.children.item(0);
+    if (box == null) {
         return -1;
     } else {
-        firstBox.children.item(0).innerHTML = parseInt(firstBox.textContent) * 2;
+        box.innerHTML = parseInt(firstBox.textContent) * 2;
+        setBackground(box);
         return 1;
         //TODO change color
     }
