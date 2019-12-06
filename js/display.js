@@ -1,8 +1,5 @@
 /**
- * get a square and positioned him in the game,
- * maybe a matriz, with position ready
- * then add a scale effect when spawn a square,
- * then add a transition effect when moved from position
+
  */
 //make a big square for main panel, then small squares for position
 let sqrPanel = document.createElement("div");
@@ -12,6 +9,19 @@ let sizeMtx = 4;
 let posX = 0,
     posY = 0;
 let colors = ["#edf0ce", "#f0d999", "#f5ae67", "#e0894a", "#f2422e", "#ffea2e", "#f7b819"];
+let keyMap = {
+    38: "UP", // Up
+    39: "RIGHT", // Right
+    40: "DOWN", // Down
+    37: "LEFT", // Left
+
+    87: "UP", // W
+    68: "RIGHT", // D
+    83: "DOWN", // S
+    65: "LEFT" // A
+};
+
+
 //maybe use grid or flexbox to position it the squares
 /**
  * Generate a matrix of squares with "floor" class in it and apped them on sqr-panel
