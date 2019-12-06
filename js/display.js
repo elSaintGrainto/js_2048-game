@@ -45,8 +45,9 @@ setNewSquare(4);
 setNewSquare(4);
 setNewSquare(4);
 setNewSquare(4);
-setNewSquare();
-setNewSquare();
+setNewSquare(4);
+setNewSquare(4);
+setNewSquare(4);
 //right and down need to count down on variables of FOr loop
 moveBox("RIGHT");
 
@@ -162,24 +163,22 @@ function checkToMove(box, x, y, num, bDecrese, axis = "top") {
                 translateSquare(box, floor[0]);
                 box.ontransitionend = setTimeout(function() {
                     if (increseBoxNum(floor[0]) == 1) {
-                        box.parentNode.removeChild(box);
-                        c("ADDING")
+                        if (compareBox(box, floor[0])) {
+                            box.parentNode.removeChild(box);
+                            c("-----------------ADDING")
+                        }
                     } else {
                         checkToMove(box, x, y, num, bDecrese, axis);
-                        c("NEXT")
+                        c("NEXT--------------------")
                     }
                     //!ERROR while increse a number that has incresed with otherr
-                }, 200);
-
-
-                return; //TODO return to start sum and move right here
+                }, 220);
+                return;
             } else {
                 x = bDecrese ? x - 1 : x + 1
                 c("xDif=" + x);
                 //transition, then remove
                 translateSquare(box, floor[0]);
-                //floor[0].appendChild(box);
-                //return back box to dont move,or just less move
                 return 0;
             }
         }
@@ -193,11 +192,21 @@ function increseBoxNum(firstBox) {
     if (firstBox.children.item(0) == null) {
         return -1;
     } else {
+        //correect inner = this *2
         firstBox.children.item(0).innerHTML = Math.pow(parseInt(firstBox.textContent), 2);
         return 1;
         //change color
     }
 
+}
+
+function compareBox(box, parent) {
+    let bt = box.getBoundingClientRect().top;
+    let bl = box.getBoundingClientRect().left;
+    let pt = parent.getBoundingClientRect().top;
+    let pl = parent.getBoundingClientRect().left;
+    if (bt == pt && bl == pl) return true;
+    else return false;
 }
 
 /**
