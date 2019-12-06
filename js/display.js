@@ -44,10 +44,7 @@ generateFloor(sizeMtx);
 setNewSquare(4);
 setNewSquare(4);
 setNewSquare(4);
-setNewSquare(4);
-setNewSquare(4);
-setNewSquare(4);
-setNewSquare(4);
+
 //right and down need to count down on variables of FOr loop
 moveBox("RIGHT");
 
@@ -192,10 +189,9 @@ function increseBoxNum(firstBox) {
     if (firstBox.children.item(0) == null) {
         return -1;
     } else {
-        //correect inner = this *2
         firstBox.children.item(0).innerHTML = parseInt(firstBox.textContent) * 2;
         return 1;
-        //change color
+        //TODO change color
     }
 
 }
@@ -221,10 +217,10 @@ function translateSquare(box, parent) {
     set_translate(box, top, left);
 }
 /**
- * 
- * @param {HTMLElement} e 
- * @param {Integer} top
- * @param {Integer} left
+ * move the Element from his actual location to the location asigned
+ * @param {HTMLElement} e Element asigned to move
+ * @param {Integer} top x axis to set
+ * @param {Integer} left y axis to set
  */
 function set_translate(e, top, left) {
     e.style["-webkit-transform"] = "translate(" + left + "px, " + top + "px)";
