@@ -11,6 +11,7 @@ let sizeSqr = 50;
 let sizeMtx = 4;
 let posX = 0,
     posY = 0;
+let colors = ["#f5c79d", "#f0d999"];
 //maybe use grid or flexbox to position it the squares
 /**
  * Generate a matrix of squares with "floor" class in it and apped them on sqr-panel
@@ -38,7 +39,13 @@ function calculateSizeFloor() {
     sqrPanel.setAttribute("width", w);
     sqrPanel.setAttribute("height", w);
 }
+/**
+ * Get the element with a number, and change the color depending his number
+ * @param {HTMLElement} elementWithNumber 
+ */
+function setBackground(elementWithNumber) {
 
+}
 //calculateSizeFloor();
 generateFloor(sizeMtx);
 setNewSquare(4);
